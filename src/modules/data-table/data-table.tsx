@@ -162,7 +162,7 @@ export function DataTable<TData, TValue>({
             {" "}
             of
             {" "}
-            {pageCount}
+            {pageCount.toLocaleString()}
           </div>
 
           <div className="flex items-center space-x-2">
