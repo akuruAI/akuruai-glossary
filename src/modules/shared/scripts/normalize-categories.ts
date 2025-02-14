@@ -4,9 +4,6 @@ import { Database } from "../db/database.types";
 
 dotenv.config();
 
-console.log(2222, process.env.NEXT_PUBLIC_SUPABASE_URL!);
-console.log(3333, process.env.SUPABASE_SERVICE_ROLE_KEY!);
-
 const supabase = createClient<Database>(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!,
