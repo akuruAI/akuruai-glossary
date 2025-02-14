@@ -9,36 +9,64 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      category: {
+        Row: {
+          id: number;
+          name: string | null;
+        };
+        Insert: {
+          id?: number;
+          name?: string | null;
+        };
+        Update: {
+          id?: number;
+          name?: string | null;
+        };
+        Relationships: [];
+      };
       words: {
         Row: {
-          category: string;
+          categoryId: number;
           english: string;
           id: number;
           sinhala: string[] | null;
           tamil: string[] | null;
         };
         Insert: {
-          category: string;
+          categoryId: number;
           english: string;
           id?: number;
           sinhala?: string[] | null;
           tamil?: string[] | null;
         };
         Update: {
-          category?: string;
+          categoryId?: number;
           english?: string;
           id?: number;
           sinhala?: string[] | null;
           tamil?: string[] | null;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "words_categoryId_fkey";
+            columns: ["categoryId"];
+            isOneToOne: false;
+            referencedRelation: "category";
+            referencedColumns: ["id"];
+          },
+        ];
       };
     };
     Views: {
       [_ in never]: never
     };
     Functions: {
-      [_ in never]: never
+      get_unique_categories: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          category: string;
+        }[];
+      };
     };
     Enums: {
       [_ in never]: never
