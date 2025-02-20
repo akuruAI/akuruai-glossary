@@ -1,6 +1,7 @@
 "use client";
 
 import { AlphabeticalSearch } from "@modules/alphabet/components/AlphabeticalSearch";
+import { ModeToggle } from "@modules/app/components/ModeToggle";
 import { GlossaryTable } from "@modules/data-table/glossary-table";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -19,11 +20,13 @@ export default function Home() {
       <div className="min-h-screen bg-background">
         {/* Header Section */}
         <header className="border-b">
-          <div className="container flex h-16 items-center space-x-4 px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center space-x-2">
+          <div className="container flex h-16 items-center space-x-4 px-4 sm:px-6 lg:px-8 m-auto">
+            <div className="flex items-center space-x-2 w-full">
               <h1 className="text-2xl font-bold tracking-tighter">
                 AkuruAI
               </h1>
+              <div className="flex-1"></div>
+              <ModeToggle></ModeToggle>
             </div>
           </div>
         </header>
