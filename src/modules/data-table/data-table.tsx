@@ -171,7 +171,6 @@ export function DataTable<TData, TValue>({
               value={pageSize.toString()}
               onValueChange={(value) => {
                 onPageSizeChange(Number.parseInt(value));
-                onPageChange(1); // Reset to first page when changing page size
               }}
             >
               <SelectTrigger className="h-8 w-[70px]">
