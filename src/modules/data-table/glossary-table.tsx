@@ -32,6 +32,7 @@ export function GlossaryTable() {
   const pageSize = Number(searchParams.get("size")) || 10;
   const searchQuery = searchParams.get("search") || "";
   const categoryId = searchParams.get("category") || "all";
+  const currentScript = searchParams.get("script") || "en";
 
   const [searchInput, setSearchInput] = useState(searchQuery);
 
@@ -54,7 +55,7 @@ export function GlossaryTable() {
   );
 
   const { data, isLoading } = useQuery({
-    queryKey: ["words", currentPage, pageSize, searchQuery, categoryId],
+    queryKey: ["words", currentPage, pageSize, searchQuery, categoryId, currentScript],
     queryFn: async () => {
       let query = supabase
         .from("words")
@@ -63,28 +64,45 @@ export function GlossaryTable() {
         });
 
       if (searchQuery) {
-        // Use the optimized trigram search function and chain the query
-        const searchResults = await supabase
-          .rpc("search_words_trgm", {
-            search_query: searchQuery,
-          });
+        const isAlphabeticalSearch = searchQuery.length === 1;
 
-        if (searchResults.error)
-          throw searchResults.error;
+        if (isAlphabeticalSearch) {
+          // For single letter searches, use direct column filtering
+          switch (currentScript) {
+            case "en":
+              query = query.ilike("english", `${searchQuery}%`);
+              break;
+            case "si":
+              // Using array_position for better performance with array columns
+              query = query.or(`sinhala.ilike.${searchQuery}%`);
+              break;
+            case "ta":
+              query = query.or(`tamil.ilike.${searchQuery}%`);
+              break;
+          }
+        }
+        else {
+          // For regular searches, use the trigram search
+          const searchResults = await supabase
+            .rpc("search_words_trgm", {
+              search_query: searchQuery,
+            });
 
-        // Continue with filtering and pagination
-        query = supabase
-          .from("words")
-          .select("id, english, sinhala, tamil, categoryId, category!inner(name)", {
-            count: "exact",
-          })
-          .in("id", (searchResults.data || []).map(row => row.id))
-          .range((currentPage - 1) * pageSize, currentPage * pageSize - 1);
+          if (searchResults.error)
+            throw searchResults.error;
 
-        // Apply category filter after search if needed
+          query = query.in("id", (searchResults.data || []).map(row => row.id));
+        }
+
+        // Apply category filter if needed
         if (categoryId !== "all") {
           query = query.eq("categoryId", Number.parseInt(categoryId, 10));
         }
+
+        // Apply pagination and ordering
+        query = query
+          .range((currentPage - 1) * pageSize, currentPage * pageSize - 1)
+          .order("english");
       }
       else {
         // If no search query, use normal pagination with category filter
