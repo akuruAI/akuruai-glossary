@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Providers } from "@modules/app/components/Providers";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Footer } from "./components/Footer";
+import { Navbar } from "./components/Navbar";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,7 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "AkuruAI Trilingual Glossary – English, Sinhala & Tamil",
-  description: "Discover fast, intuitive translations and definitions with AkuruAI’s trilingual glossary. Easily connect English, Sinhala, and Tamil for seamless language learning and communication.",
+  description: "Discover fast, intuitive translations and definitions with AkuruAI's trilingual glossary. Easily connect English, Sinhala, and Tamil for seamless language learning and communication.",
 };
 
 export default function RootLayout({
@@ -26,10 +28,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
         <Providers>
-          {children}
+          <Navbar />
+          <main className="flex-1">
+            {children}
+          </main>
+          <Footer />
         </Providers>
       </body>
     </html>
