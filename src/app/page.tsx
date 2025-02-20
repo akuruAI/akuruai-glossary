@@ -4,6 +4,8 @@ import { AlphabeticalSearch } from "@modules/alphabet/components/AlphabeticalSea
 import { ModeToggle } from "@modules/app/components/ModeToggle";
 import { GlossaryTable } from "@modules/data-table/glossary-table";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useTheme } from "next-themes";
+import Image from "next/image";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -15,6 +17,8 @@ const queryClient = new QueryClient({
 });
 
 export default function Home() {
+  const { theme } = useTheme();
+  console.log(333, theme);
   return (
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen bg-background">
@@ -22,9 +26,13 @@ export default function Home() {
         <header className="border-b">
           <div className="container flex h-16 items-center space-x-4 px-4 sm:px-6 lg:px-8 m-auto">
             <div className="flex items-center space-x-2 w-full">
-              <h1 className="text-2xl font-bold tracking-tighter">
-                AkuruAI
-              </h1>
+              {theme === "dark"
+                ? (
+                    <Image src="/images/akuruAI-LOGO-DARK.svg" alt="AkuruAI Logo" width={120} height={31.82}></Image>
+                  )
+                : (
+                    <Image src="/images/akuruAI-LOGO.svg" alt="AkuruAI Logo" width={120} height={31.82}></Image>
+                  )}
               <div className="flex-1"></div>
               <ModeToggle></ModeToggle>
             </div>
