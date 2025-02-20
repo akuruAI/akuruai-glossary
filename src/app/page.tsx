@@ -22,7 +22,7 @@ export default function Home() {
           <div className="container flex h-16 items-center space-x-4 px-4 sm:px-6 lg:px-8">
             <div className="flex items-center space-x-2">
               <h1 className="text-2xl font-bold tracking-tighter">
-                AkuruAI Glossary
+                AkuruAI
               </h1>
             </div>
           </div>
@@ -33,11 +33,10 @@ export default function Home() {
           {/* Hero Section */}
           <section className="mx-auto max-w-4xl text-center">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              Trilingual Dictionary
+              AkuruAI Glossary
             </h2>
             <p className="mt-4 text-muted-foreground">
-              Discover words and their meanings in Sinhala, Tamil, and English. Access a comprehensive
-              collection of over 384,000 terms.
+              Unlock the power of language with our fast, intuitive trilingual glossary. Crafted by the AkuruAI team, this tool seamlessly bridges English, Sinhala, and Tamil—making translations and definitions effortless while connecting cultures one word at a time.
             </p>
 
             {/* Quick Stats */}
@@ -63,8 +62,8 @@ export default function Home() {
             </div>
 
             {/* Alphabetical Search Component */}
-            <AlphabeticalSearch />
           </section>
+          <AlphabeticalSearch />
 
           {/* Glossary Table */}
           <GlossaryTable />
