@@ -15,7 +15,7 @@ export function AlphabeticalSearch() {
   };
 
   return (
-    <div className="mt-8 rounded-lg">
+    <div className="mt-8 border-t border-b px-5 py-5">
       <div className="flex items-center justify-between mb-2">
         <span className="text-sm font-medium text-muted-foreground">Search Alphabetically</span>
         <div className="flex gap-2">
