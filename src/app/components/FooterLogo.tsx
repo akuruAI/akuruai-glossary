@@ -12,7 +12,7 @@ export function FooterLogo() {
       {theme === "dark"
         ? (
             <Image
-              src="/images/akuruAI-LOGO-DARK.svg"
+              src="/images/akuruAI-LOGO-dark.svg"
               alt="AkuruAI Logo"
               width={120}
               height={31.82}

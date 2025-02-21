@@ -1,7 +1,6 @@
 "use client";
 
 import { supabase } from "@modules/shared/db";
-import { useQuery } from "@tanstack/react-query";
 import { WordWithCategory } from "../types";
 
 interface FetchWordsParams {
@@ -36,12 +35,4 @@ export async function fetchWords({ page, pageSize }: FetchWordsParams) {
     totalCount: count || 0,
     pageCount: Math.ceil((count || 0) / pageSize),
   };
-}
-
-export function useWordsQuery(page: number, pageSize: number) {
-  return useQuery({
-    queryKey: ["words", page, pageSize],
-    queryFn: () => fetchWords({ page, pageSize }),
-    keepPreviousData: true,
-  });
 }
